@@ -13,11 +13,24 @@ config_version=5
 config/name="Clockwise"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 
+[audio]
+
+buses/default_bus_layout="res://audio_bus_layout.tres"
+
+[autoload]
+
+glbl="*res://Scripts/Global.gd"
+
 [display]
 
 window/size/viewport_width=800
-window/size/viewport_height=900
+window/size/viewport_height=600
 window/stretch/mode="viewport"
+window/stretch/aspect="keep_height"
+
+[filesystem]
+
+import/blender/enabled=false
 
 [layer_names]
 
