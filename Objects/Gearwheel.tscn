@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://wgulisivjjkl"]
+
+[ext_resource type="Script" path="res://Objects/Gearwheel.gd" id="1_s6uul"]
+[ext_resource type="Texture2D" uid="uid://b1r7jf28ou1is" path="res://Objects/Tilesets/Tileset.png" id="2_n4x53"]
+
+[node name="Gearwheel" type="Node2D"]
+script = ExtResource("1_s6uul")
+gearwheels = Array[NodePath]([NodePath("Wheel"), NodePath("Wheel+")])
+
+[node name="Wheel" type="Sprite2D" parent="."]
+rotation = -6.28319
+texture = ExtResource("2_n4x53")
+region_enabled = true
+region_rect = Rect2(416, 32, 64, 64)
+
+[node name="Inner" type="Sprite2D" parent="Wheel"]
+texture = ExtResource("2_n4x53")
+region_enabled = true
+region_rect = Rect2(480, 96, 64, 64)
+
+[node name="Wheel+" type="Sprite2D" parent="."]
+position = Vector2(32, -48)
+rotation = 6.28319
+texture = ExtResource("2_n4x53")
+region_enabled = true
+region_rect = Rect2(416, 32, 64, 64)
+
+[node name="Inner" type="Sprite2D" parent="Wheel+"]
+texture = ExtResource("2_n4x53")
+region_enabled = true
+region_rect = Rect2(416, 96, 64, 64)
+
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]

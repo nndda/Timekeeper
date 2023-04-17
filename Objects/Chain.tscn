@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddsav5tnheunm"]
+
+[ext_resource type="Shader" path="res://Shaders/Scrolling.gdshader" id="1_4so4x"]
+[ext_resource type="Texture2D" uid="uid://08qquq8i6tco" path="res://Objects/Chain.png" id="2_m227o"]
+[ext_resource type="Script" path="res://Objects/Chain.gd" id="2_xnydp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3fcdi"]
+shader = ExtResource("1_4so4x")
+shader_parameter/direction = Vector2(1, 0)
+shader_parameter/speed_scale = 2.0
+
+[node name="Chain" type="Line2D"]
+material = SubResource("ShaderMaterial_3fcdi")
+position = Vector2(16, 0)
+points = PackedVector2Array(-208, -32, 112, 80, 96, 96, -224, -16)
+texture = ExtResource("2_m227o")
+texture_mode = 1
+joint_mode = 2
+script = ExtResource("2_xnydp")
