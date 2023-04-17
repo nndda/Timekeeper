@@ -23,8 +23,10 @@ glbl="*res://Scripts/Global.gd"
 
 [display]
 
-window/size/viewport_width=800
-window/size/viewport_height=600
+window/size/viewport_width=544
+window/size/viewport_height=408
+window/size/window_width_override=800
+window/size/window_height_override=600
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
 
@@ -81,3 +83,4 @@ renderer/rendering_method.mobile="gl_compatibility"
 2d/shadow_atlas/size=128
 textures/decals/filter=0
 textures/light_projectors/filter=0
+environment/defaults/default_clear_color=Color(0.0156863, 0.0156863, 0.0196078, 1)
