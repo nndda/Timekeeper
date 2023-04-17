@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var move_x : int = 0
 var speed : float = 9500
-@export_range( -1000, 12000 ) var attack_speed : float = 0
+@export_range( -1000, 18000 ) var attack_speed : float = 0
 
 var jump_force : float = 400
 var jump_count : int = 0
@@ -88,3 +88,6 @@ func _on_AnimationPlayer_finished( anim_name ):
 
 func _on_AnimationPlayer_started( anim_name ):
 	if anim_name == "Idle": allow_clean = true
+
+func debug_prinit() -> void:
+	print($Sprite2D/Broom/Broom.monitorable)
