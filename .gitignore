@@ -6,3 +6,12 @@
 
 # Placeholders
 Placeholders/
+
+# Raw Sprites/Tilesets
+*.pdn
+Player/Sprites/
+
+# Sound effects, & external/premade assets
+# idk where to put the license/credit
+# i just put the credits in-game and in game's page
+Sound Effects/
