@@ -23,8 +23,8 @@ glbl="*res://Scripts/Global.gd"
 
 [display]
 
-window/size/viewport_width=544
-window/size/viewport_height=408
+window/size/viewport_width=516
+window/size/viewport_height=387
 window/size/window_width_override=800
 window/size/window_height_override=600
 window/stretch/mode="viewport"
