@@ -450,9 +450,12 @@ closed = false
 polygon = PackedVector2Array(-6, -11, -6, -13, -5, -13, -5, -14, -3, -14, -3, -15, 2, -15, 2, -14, 3, -14, 3, -13, 4, -12)
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 11
+collision_mask = 11
 script = ExtResource("1_gebf3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_tu4g0")
 
