@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://dv6isj2l7ddji"]
+
+[ext_resource type="TileSet" uid="uid://dk63g556sp5ed" path="res://Objects/Tilesets/Tileset.tres" id="1_gvbjo"]
+[ext_resource type="Script" path="res://Scripts/LevelHandler.gd" id="1_pqgjw"]
+[ext_resource type="PackedScene" uid="uid://be7vfbnulj1ue" path="res://Objects/Door.tscn" id="2_4jiiq"]
+[ext_resource type="PackedScene" uid="uid://fwgthtxmlpx4" path="res://Player/Player.tscn" id="3_nt3by"]
+[ext_resource type="PackedScene" uid="uid://ux0qv01spkwh" path="res://Shaders/GlobalModulate.tscn" id="5_llpxo"]
+
+[node name="LevelBase" type="Node2D"]
+script = ExtResource("1_pqgjw")
+camera_boundary = NodePath("CameraLimit")
+door_to_next_level = NodePath("Door")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_gvbjo")
+format = 2
+layer_1/name = ""
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
+
+[node name="Lights" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("3_nt3by")]
+position = Vector2(-48, 16)
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="Door" parent="." instance=ExtResource("2_4jiiq")]
+
+[node name="CameraLimit" type="ReferenceRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -120.0
+offset_right = 120.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+border_width = 5.0
+
+[node name="Med" parent="." instance=ExtResource("5_llpxo")]
+
+[editable path="Door"]
