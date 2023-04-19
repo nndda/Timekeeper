@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Clockwise"
+run/main_scene="res://Levels/2.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 
 [audio]
@@ -29,6 +30,14 @@ window/size/window_width_override=800
 window/size/window_height_override=600
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
+
+[editor]
+
+movie_writer/mix_rate=8000
+movie_writer/movie_file="C:/Users/Asus/Pictures/_Artworks/#OnGoing/24_gdjs23/scene_preview.avi"
+movie_writer/disable_vsync=true
+movie_writer/fps=30
+naming/scene_name_casing=0
 
 [filesystem]
 
@@ -76,11 +85,37 @@ Interract={
 
 [rendering]
 
+occlusion_culling/bvh_build_quality=0
 textures/canvas_textures/default_texture_filter=0
 textures/canvas_textures/default_texture_repeat=2
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-2d/shadow_atlas/size=128
+lights_and_shadows/directional_shadow/size=512
+lights_and_shadows/directional_shadow/size.mobile=256
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
+2d/shadow_atlas/size=32
+gl_compatibility/item_buffer_size=4096
+reflections/sky_reflections/texture_array_reflections=false
+textures/default_filters/anisotropic_filtering_level=0
+camera/depth_of_field/depth_of_field_bokeh_shape=0
+camera/depth_of_field/depth_of_field_bokeh_quality=0
+environment/ssao/quality=0
+environment/ssil/quality=0
+environment/ssil/half_size=false
 textures/decals/filter=0
 textures/light_projectors/filter=0
+occlusion_culling/occlusion_rays_per_thread=32
+environment/glow/upscale_mode=0
+environment/screen_space_reflection/roughness_quality=0
+environment/subsurface_scattering/subsurface_scattering_quality=0
+environment/volumetric_fog/use_filter=0
+limits/opengl/max_renderable_elements=4096
+limits/opengl/max_renderable_lights=16
 environment/defaults/default_clear_color=Color(0.0156863, 0.0156863, 0.0196078, 1)
+lights_and_shadows/positional_shadow/atlas_size=512
+lights_and_shadows/positional_shadow/atlas_size.mobile=256
+lights_and_shadows/positional_shadow/atlas_quadrant_0_subdiv=0
+lights_and_shadows/positional_shadow/atlas_quadrant_1_subdiv=0
+lights_and_shadows/positional_shadow/atlas_quadrant_2_subdiv=0
+lights_and_shadows/positional_shadow/atlas_quadrant_3_subdiv=0
