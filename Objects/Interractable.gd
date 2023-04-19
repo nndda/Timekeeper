@@ -14,9 +14,9 @@ func _process( _delta ):
 func _on_body_entered( body ):
 	if body.get_name() == "Player":
 		glbl.current_interractable = self
-		$Label.show()
+		$Label.visible = allow_interract
 
 func _on_body_exited( body ):
 	if body.get_name() == "Player":
 		glbl.current_interractable = null
-		$Label.hide()
+		$Label.visible = false
