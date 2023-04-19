@@ -1,24 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://be7vfbnulj1ue"]
+[gd_scene load_steps=4 format=3 uid="uid://be7vfbnulj1ue"]
 
-[ext_resource type="Texture2D" uid="uid://b1r7jf28ou1is" path="res://Objects/Tilesets/Tileset.png" id="1_b0aeg"]
+[ext_resource type="Texture2D" uid="uid://b7pse32804b12" path="res://Objects/Door.webp" id="1_675x5"]
 [ext_resource type="Script" path="res://Objects/Door.gd" id="2_gro8s"]
-[ext_resource type="PackedScene" uid="uid://brgj5wi1ef142" path="res://Shaders/Lights/WallLightObjective.tscn" id="3_008tj"]
 [ext_resource type="PackedScene" uid="uid://ds4rcjgf7bj82" path="res://Objects/Interractable.tscn" id="4_iikts"]
 
 [node name="Door" type="Sprite2D"]
 self_modulate = Color(0.419608, 0.392157, 0.313726, 1)
-texture = ExtResource("1_b0aeg")
-region_enabled = true
+texture = ExtResource("1_675x5")
 region_rect = Rect2(0, 256, 64, 64)
 script = ExtResource("2_gro8s")
 
 [node name="ObjectiveLight" type="Node2D" parent="."]
-
-[node name="WallLight" parent="ObjectiveLight" instance=ExtResource("3_008tj")]
-position = Vector2(-48, -16)
-
-[node name="WallLight2" parent="ObjectiveLight" instance=ExtResource("3_008tj")]
-position = Vector2(-48, -16)
 
 [node name="Interractable" parent="." instance=ExtResource("4_iikts")]
 

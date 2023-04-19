@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://sgi28kydhp1"]
 
-[ext_resource type="Texture2D" uid="uid://b1r7jf28ou1is" path="res://Objects/Tilesets/Tileset.png" id="1_dkrsp"]
+[ext_resource type="Texture2D" uid="uid://ce8gvoaucr162" path="res://Objects/Cobwebs/3.webp" id="1_k87ym"]
 [ext_resource type="Script" path="res://Objects/Cobweb.gd" id="2_o5v13"]
 [ext_resource type="Texture2D" uid="uid://ygxqyj0ipb07" path="res://Shaders/Particles/DustCloud.png" id="3_igoie"]
 
@@ -110,8 +110,8 @@ _data = [Vector2(0, 1.5), 0.0, 0.0, 0, 0, Vector2(0.186131, 3.95706), 0.0, 0.0, 
 point_count = 3
 
 [node name="Cobweb" type="Sprite2D"]
-texture = ExtResource("1_dkrsp")
-region_enabled = true
+show_behind_parent = true
+texture = ExtResource("1_k87ym")
 region_rect = Rect2(192, 64, 48, 48)
 script = ExtResource("2_o5v13")
 
