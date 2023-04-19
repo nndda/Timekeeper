@@ -1,14 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmwfc28whoesj"]
+[gd_scene load_steps=16 format=3 uid="uid://bmwfc28whoesj"]
 
 [ext_resource type="Script" path="res://Scripts/LevelHandler.gd" id="1_ij0e3"]
+[ext_resource type="PackedScene" uid="uid://c001c4e7tnxfe" path="res://Objects/OutsideSky.tscn" id="2_ftct1"]
 [ext_resource type="TileSet" uid="uid://dk63g556sp5ed" path="res://Objects/Tilesets/Tileset.tres" id="2_g60j8"]
 [ext_resource type="PackedScene" uid="uid://7gn1fuytfymn" path="res://Shaders/Lights/WallLight.tscn" id="3_no3ba"]
 [ext_resource type="PackedScene" uid="uid://bveussi2cnjha" path="res://Shaders/Lights/WindowLight.tscn" id="4_xfkmv"]
 [ext_resource type="PackedScene" uid="uid://fwgthtxmlpx4" path="res://Player/Player.tscn" id="5_fk6ec"]
 [ext_resource type="PackedScene" uid="uid://wgulisivjjkl" path="res://Objects/Gearwheel.tscn" id="6_et2k4"]
-[ext_resource type="Texture2D" uid="uid://b1r7jf28ou1is" path="res://Objects/Tilesets/Tileset.png" id="7_m6auj"]
 [ext_resource type="PackedScene" uid="uid://sgi28kydhp1" path="res://Objects/Cobweb.tscn" id="8_87517"]
+[ext_resource type="Texture2D" uid="uid://clu8bsbq82sw4" path="res://Objects/Gearwheels/NormalA.webp" id="8_tjebt"]
 [ext_resource type="PackedScene" uid="uid://ddsav5tnheunm" path="res://Objects/Chain.tscn" id="9_hc8ag"]
+[ext_resource type="Texture2D" uid="uid://dsyidtb0d4aa5" path="res://Objects/Gearwheels/Inner02.webp" id="9_slrp3"]
 [ext_resource type="PackedScene" uid="uid://be7vfbnulj1ue" path="res://Objects/Door.tscn" id="10_ngddk"]
 [ext_resource type="PackedScene" uid="uid://ux0qv01spkwh" path="res://Shaders/GlobalModulate.tscn" id="11_ialfd"]
 
@@ -30,12 +32,7 @@ camera_boundary = NodePath("CameraLimit")
 gearwheel_objectives = Array[NodePath]([NodePath("Objects/Gearwheel"), NodePath("Objects/Gearwheel3"), NodePath("Objects/Gearwheel4")])
 door_to_next_level = NodePath("Door")
 
-[node name="OutsideSky" type="ColorRect" parent="."]
-offset_left = -192.0
-offset_top = -160.0
-offset_right = 352.0
-offset_bottom = 64.0
-color = Color(1, 1, 0.635294, 1)
+[node name="OutsideSky" parent="." instance=ExtResource("2_ftct1")]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("2_g60j8")
@@ -107,18 +104,15 @@ position = Vector2(32, -72)
 [node name="Wheel2+" type="Sprite2D" parent="Objects/Gearwheel/Gearwheel"]
 position = Vector2(45, -16)
 rotation = 6.28319
-texture = ExtResource("7_m6auj")
-region_enabled = true
+texture = ExtResource("8_tjebt")
 region_rect = Rect2(416, 32, 64, 64)
 
 [node name="Inner" type="Sprite2D" parent="Objects/Gearwheel/Gearwheel/Wheel2+"]
-texture = ExtResource("7_m6auj")
-region_enabled = true
+texture = ExtResource("9_slrp3")
 region_rect = Rect2(480, 96, 64, 64)
 
 [node name="Cobweb" parent="Objects/Gearwheel" instance=ExtResource("8_87517")]
-show_behind_parent = true
-position = Vector2(72, -37)
+position = Vector2(72, -45)
 rotation = -1.57079
 
 [node name="Gearwheel2" parent="Objects" instance=ExtResource("6_et2k4")]
@@ -138,14 +132,13 @@ sub_gearwheel = NodePath("Gearwheel")
 cobwebs = Array[NodePath]([NodePath("Cobweb")])
 
 [node name="Wheel+" parent="Objects/Gearwheel3" index="1"]
-visible = false
 position = Vector2(152, 0)
+scale = Vector2(1, 1)
 
 [node name="Inner" parent="Objects/Gearwheel3/Wheel+" index="0"]
 region_rect = Rect2(480, 96, 64, 64)
 
 [node name="Cobweb" parent="Objects/Gearwheel3" instance=ExtResource("8_87517")]
-show_behind_parent = true
 position = Vector2(-41, 5)
 rotation = 3.14159
 
@@ -156,14 +149,9 @@ points = PackedVector2Array(-64, -8, 88, -8, 88, 8, -72, 8, -80, 0, -72, -8, -48
 [node name="Wheel2" type="Sprite2D" parent="Objects/Gearwheel3"]
 modulate = Color(0.701961, 0.701961, 0.701961, 1)
 position = Vector2(152, 0)
-texture = ExtResource("7_m6auj")
-region_enabled = true
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_tjebt")
 region_rect = Rect2(416, 32, 64, 64)
-
-[node name="Inner" type="Sprite2D" parent="Objects/Gearwheel3/Wheel2"]
-texture = ExtResource("7_m6auj")
-region_enabled = true
-region_rect = Rect2(480, 96, 64, 64)
 
 [node name="Gearwheel" parent="Objects/Gearwheel3" instance=ExtResource("6_et2k4")]
 position = Vector2(200, 48)
@@ -176,15 +164,18 @@ region_rect = Rect2(384, 288, 128, 128)
 [node name="Wheel+" parent="Objects/Gearwheel3/Gearwheel" index="1"]
 visible = false
 
+[node name="Inner" type="Sprite2D" parent="Objects/Gearwheel3"]
+position = Vector2(152, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_slrp3")
+region_rect = Rect2(480, 96, 64, 64)
+
 [node name="Gearwheel4" parent="Objects" instance=ExtResource("6_et2k4")]
 position = Vector2(616, -272)
 cobwebs = Array[NodePath]([NodePath("Cobweb")])
 
 [node name="Inner" parent="Objects/Gearwheel4/Wheel" index="0"]
 region_rect = Rect2(416, 96, 64, 64)
-
-[node name="Wheel+" parent="Objects/Gearwheel4" index="1"]
-visible = false
 
 [node name="Cobweb" parent="Objects/Gearwheel4" instance=ExtResource("8_87517")]
 position = Vector2(-88, 16)
@@ -196,9 +187,6 @@ position = Vector2(608, -96)
 
 [node name="ObjectiveLight" parent="Door" index="0"]
 position = Vector2(0, -8)
-
-[node name="WallLight2" parent="Door/ObjectiveLight" index="1"]
-position = Vector2(-48, 0)
 
 [node name="UI" type="CanvasLayer" parent="."]
 visible = false
