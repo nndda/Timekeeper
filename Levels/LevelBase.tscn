@@ -24,12 +24,12 @@ layer_1/tile_data = PackedInt32Array()
 
 [node name="Lights" type="Node2D" parent="."]
 
+[node name="Door" parent="." instance=ExtResource("2_4jiiq")]
+
 [node name="Player" parent="." instance=ExtResource("3_nt3by")]
 position = Vector2(-48, 16)
 
 [node name="Objects" type="Node2D" parent="."]
-
-[node name="Door" parent="." instance=ExtResource("2_4jiiq")]
 
 [node name="CameraLimit" type="ReferenceRect" parent="."]
 anchors_preset = 15
