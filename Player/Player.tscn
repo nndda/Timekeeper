@@ -1,7 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://fwgthtxmlpx4"]
+[gd_scene load_steps=21 format=3 uid="uid://fwgthtxmlpx4"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_gebf3"]
-[ext_resource type="Texture2D" uid="uid://ctl4kaoewuwhm" path="res://Player/Sprites.png" id="2_yptwc"]
+[ext_resource type="Texture2D" uid="uid://bclh64215i6f" path="res://Player/Sprites.webp" id="2_fl1hh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu4g0"]
 size = Vector2(13, 30)
@@ -67,26 +67,6 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("..")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0.025, 0.225, 0.45),
-"transitions": PackedFloat32Array(1, 1, 1),
-"values": [{
-"args": [],
-"method": &"debug_prinit"
-}, {
-"args": [],
-"method": &"debug_prinit"
-}, {
-"args": [],
-"method": &"debug_prinit"
-}]
 }
 
 [sub_resource type="Animation" id="Animation_c408l"]
@@ -449,6 +429,43 @@ size = Vector2(45, 45)
 closed = false
 polygon = PackedVector2Array(-6, -11, -6, -13, -5, -13, -5, -14, -3, -14, -3, -15, 2, -15, 2, -14, 3, -14, 3, -13, 4, -12)
 
+[sub_resource type="Animation" id="Animation_mgsa5"]
+resource_name = "Death"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5),
+"transitions": PackedFloat32Array(0.5, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_60u64"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t6qd4"]
+_data = {
+"Death": SubResource("Animation_mgsa5"),
+"RESET": SubResource("Animation_60u64")
+}
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 11
 collision_mask = 11
@@ -472,7 +489,7 @@ offset_right = -25.0
 offset_bottom = 4.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_yptwc")
+texture = ExtResource("2_fl1hh")
 region_enabled = true
 region_rect = Rect2(5, 11, 36, 29)
 
@@ -485,7 +502,7 @@ libraries = {
 [node name="Broom" type="Sprite2D" parent="Sprite2D"]
 visible = false
 position = Vector2(20, -1)
-texture = ExtResource("2_yptwc")
+texture = ExtResource("2_fl1hh")
 region_enabled = true
 region_rect = Rect2(240, 96, 48, 48)
 
@@ -511,5 +528,24 @@ limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 4.0
 
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
+root_node = NodePath("../..")
+autoplay = "RESET"
+libraries = {
+"": SubResource("AnimationLibrary_t6qd4")
+}
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
 [connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="_on_AnimationPlayer_finished"]
 [connection signal="animation_started" from="Sprite2D/AnimationPlayer" to="." method="_on_AnimationPlayer_started"]
+[connection signal="animation_finished" from="UI/AnimationPlayer" to="." method="_on_AnimationUI_finished"]

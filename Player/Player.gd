@@ -77,6 +77,10 @@ func Clean() -> void:
 		if !mid_air_clean: mid_air_clean = true
 		animation.play( "Clean" )
 
+func Kill() -> void:
+#	glbl.gravity_scale = 0.0
+	velocity.y = 0
+	$UI/AnimationPlayer.play( "Death" )
 
 #	Signals		================================================================
 
@@ -89,5 +93,6 @@ func _on_AnimationPlayer_finished( anim_name ):
 func _on_AnimationPlayer_started( anim_name ):
 	if anim_name == "Idle": allow_clean = true
 
-func debug_prinit() -> void:
-	print($Sprite2D/Broom/Broom.monitorable)
+func _on_AnimationUI_finished( anim_name ):
+	if anim_name == "Death":
+		glbl.current_level.call_deferred( "RestartLevel" )
