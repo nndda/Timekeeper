@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://vm17cqo65cxn"]
+
+[ext_resource type="PackedScene" uid="uid://brgj5wi1ef142" path="res://Shaders/Lights/WallLightObjective.tscn" id="1_d2tlc"]
+
+[node name="WallLightObjective" instance=ExtResource("1_d2tlc")]
+
+[node name="PointLight2D" parent="." index="0"]
+color = Color(1, 0.505882, 0.0705882, 1)
+energy = 1.35

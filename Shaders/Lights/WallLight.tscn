@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://7gn1fuytfymn"]
 
-[ext_resource type="Texture2D" uid="uid://b1r7jf28ou1is" path="res://Objects/Tilesets/Tileset.png" id="1_5ibgg"]
+[ext_resource type="Texture2D" uid="uid://65hx52pn5lfv" path="res://Shaders/Lights/WallLight1.webp" id="1_roen0"]
 
 [sub_resource type="Gradient" id="Gradient_s6nui"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -14,8 +14,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.9, 0.3)
 
 [node name="WallLight" type="Sprite2D"]
-texture = ExtResource("1_5ibgg")
-region_enabled = true
+texture = ExtResource("1_roen0")
 region_rect = Rect2(0, 0, 32, 32)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
