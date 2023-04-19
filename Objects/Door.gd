@@ -3,7 +3,7 @@ extends Sprite2D
 func ToNextLevel() -> void:
 
 	var next_level : String = "res://Levels/" +\
-	str( int( glbl.current_level.get_name().right( 2 ) ) + 1 ) + ".tscn"
+	str( int( glbl.current_level.get_name() ) + 1 ) + ".tscn"
 
 	get_tree().change_scene_to_file( next_level )
 
