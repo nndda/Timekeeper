@@ -12,13 +12,10 @@ var running : bool = false
 @export var callback_function : String # can be a function or animation name
 
 @export_category( "Gearwheel Objects" )
-@export var gearwheels : Array[ NodePath ]
-@export var chains : Array[ NodePath ]
-@export var chains_speed : PackedFloat32Array
+var gearwheels_object : Array[ Node ]
 @export_node_path( "Node2D" ) var sub_gearwheel : NodePath
 
 @export_category( "Switches" )
-@export var cobwebs : Array[ NodePath ]
 @export var switchable : bool = false
 @export var switch_nodes : Array[ NodePath ]
 var cobwebs_objects : Array[ Node ]
@@ -28,6 +25,8 @@ signal activated
 var active : bool = false
 
 
+#	Animations    =================================================================
+
 var ticking_tween : Tween
 func TickingAnim() -> void:
 	ticking_tween = create_tween().\
@@ -35,29 +34,28 @@ func TickingAnim() -> void:
 	set_ease( Tween.EASE_OUT ).\
 	set_trans( Tween.TRANS_BOUNCE )
 
-	for gears in gearwheels:
+	for gear in gearwheels_object:
 		var rotate_dir : float =\
-		ticking_speed if get_node( gears ).get_name().ends_with( "+" )\
+		ticking_speed if gear.get_name().ends_with( "+" )\
 		else -ticking_speed
 
 		ticking_tween.tween_property(
-			get_node( gears ), "rotation_degrees",
+			gear, "rotation_degrees",
 			rotate_dir, 1 ).as_relative()
 
 	ticking_tween.play()
-
 
 var running_tween : Tween
 func RunningAnim() -> void:
 	running_tween = create_tween().set_loops().set_parallel()
 
-	for gears in gearwheels:
+	for gear in gearwheels_object:
 		var rotate_dir : float =\
-		360 if get_node( gears ).get_name().ends_with( "+" )\
+		360 if gear.get_name().ends_with( "+" )\
 		else -360
 
 		running_tween.tween_property(
-			get_node( gears ), "rotation_degrees",
+			gear, "rotation_degrees",
 			rotate_dir,
 			remap( running_speed, 1, 30, 30, 1 )
 		).from( 0 )
@@ -66,21 +64,17 @@ func RunningAnim() -> void:
 
 
 func _ready():
+	gearwheels_object = glbl.get_children_if( "Wheel", self )
+
 	if auto_run: RunAuto()
 	else:
-		for obj in cobwebs:
-			cobwebs_objects.append(
-			get_node( obj ) )
+		cobwebs_objects = glbl.get_children_if( "Cobweb", self )
 
 func RunAuto() -> void:
 
 	match movement_type:
 		0: RunningAnim()
 		1: TickingAnim()
-
-	if chains.size() > 0 and chains_speed.size() > 0:
-		for chain in chains.size():
-			get_node( chains[ chain ] ).Run( chains_speed[ chain ] )
 
 	if get_node_or_null( sub_gearwheel ) != null:
 		get_node_or_null( sub_gearwheel ).RunAuto()
@@ -102,5 +96,5 @@ func _on_tree_exiting():
 	if running_tween != null: running_tween.kill()
 	if ticking_tween != null: ticking_tween.kill()
 
-#func _on_screen_entered(): show()
-#func _on_screen_exited(): hide()
+func _on_screen_entered(): show()
+func _on_screen_exited(): hide()

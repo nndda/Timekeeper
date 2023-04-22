@@ -7,7 +7,6 @@
 
 [node name="Gearwheel" type="Node2D"]
 script = ExtResource("1_s6uul")
-gearwheels = Array[NodePath]([NodePath("Wheel"), NodePath("Wheel+")])
 
 [node name="Wheel" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
@@ -28,7 +27,12 @@ region_rect = Rect2(416, 32, 64, 64)
 texture = ExtResource("4_ucy58")
 region_rect = Rect2(416, 96, 64, 64)
 
-[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+[node name="VisibilityHandler" type="Node" parent="."]
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibilityHandler"]
+enable_node_path = NodePath("../..")
 
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="screen_entered" from="VisibilityHandler/VisibleOnScreenEnabler2D" to="." method="_on_screen_entered"]
+[connection signal="screen_exited" from="VisibilityHandler/VisibleOnScreenEnabler2D" to="." method="_on_screen_exited"]
