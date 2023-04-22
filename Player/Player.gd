@@ -8,6 +8,7 @@ var jump_force : float = 400
 var jump_count : int = 0
 const MAX_FALL_SPEED = 9800
 
+var dead : bool = false
 
 var allow_clean : bool = true
 
@@ -15,6 +16,8 @@ var allow_clean : bool = true
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var camera : Camera2D = $Camera2D
 
+
+func _ready(): dead = false
 
 func Movementnput() -> void:
 	move_x = 0
@@ -44,21 +47,22 @@ func _process( _delta ):
 
 func _physics_process( delta ):
 
-	Movementnput()
+	if !dead:
 
-	if animation.current_animation == "Clean":
-		velocity.x = attack_speed * sprite.scale.x * delta
-		velocity.y = 0
-	else:
-		velocity.x = move_x * speed * delta
-		velocity.y += glbl.GRAVITY * glbl.gravity_scale * delta
+		Movementnput()
 
-		if velocity.y > MAX_FALL_SPEED: velocity.y = MAX_FALL_SPEED
+		if animation.current_animation == "Clean":
+			velocity.x = attack_speed * sprite.scale.x * delta
+			velocity.y = 0
+		else:
+			velocity.x = move_x * speed * delta
+			velocity.y += glbl.GRAVITY * glbl.gravity_scale * delta
 
-	move_and_slide()
+		move_and_slide()
 
 
-#	Player's Action		========================================================
+
+#	Player's Action        ========================================================
 
 func Walk( direction : int = 1 ) -> void:
 	sprite.scale.x = direction
@@ -78,11 +82,13 @@ func Clean() -> void:
 		animation.play( "Clean" )
 
 func Kill() -> void:
-#	glbl.gravity_scale = 0.0
+	dead = true
 	velocity.y = 0
 	$UI/AnimationPlayer.play( "Death" )
 
-#	Signals		================================================================
+
+
+#	Signals        ================================================================
 
 func _on_AnimationPlayer_finished( anim_name ):
 	if anim_name == "Clean":
@@ -92,6 +98,10 @@ func _on_AnimationPlayer_finished( anim_name ):
 
 func _on_AnimationPlayer_started( anim_name ):
 	if anim_name == "Idle": allow_clean = true
+
+func _on_AnimationUI_started( anim_name ):
+	if anim_name == "Death":
+		velocity.y = 0
 
 func _on_AnimationUI_finished( anim_name ):
 	if anim_name == "Death":
