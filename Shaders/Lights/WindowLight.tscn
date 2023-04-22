@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bveussi2cnjha"]
+[gd_scene load_steps=4 format=3 uid="uid://bveussi2cnjha"]
+
+[ext_resource type="Script" path="res://Scripts/VisibilityHandler.gd" id="1_cpm04"]
 
 [sub_resource type="Gradient" id="Gradient_csqs0"]
 offsets = PackedFloat32Array(0.293103, 1)
@@ -15,3 +17,16 @@ scale = Vector2(2, 3.75)
 color = Color(1, 0.9325, 0.73, 1)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_smj71")
+
+[node name="VisibilityHandler" type="Node" parent="."]
+script = ExtResource("1_cpm04")
+to_parent_position = true
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibilityHandler"]
+position = Vector2(-4.76837e-07, -1.90735e-06)
+scale = Vector2(5.6, 10.4)
+enable_node_path = NodePath("../..")
+
+[connection signal="ready" from="." to="." method="hide"]
+[connection signal="screen_entered" from="VisibilityHandler/VisibleOnScreenEnabler2D" to="." method="show"]
+[connection signal="screen_exited" from="VisibilityHandler/VisibleOnScreenEnabler2D" to="." method="hide"]
