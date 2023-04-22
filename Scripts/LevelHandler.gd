@@ -4,6 +4,7 @@ extends Node2D
 @export_category( "Objectives" )
 @export var gearwheel_objectives : Array[ NodePath ]
 var gearwheel_objective_count : int = 0
+var gearwheel_objective_total : int = 0
 @export var spider_objectives : Array[ NodePath ]
 var spider_objectives_count : int = 0
 
@@ -15,6 +16,8 @@ signal objective_completed( count : int )
 func _enter_tree(): glbl.current_level = self
 
 func _ready():
+	$UI.show()
+
 	var camlim = get_node( camera_boundary )
 	glbl.camera_boundary = [
 		int( camlim.position.x ),
@@ -31,17 +34,18 @@ func _ready():
 			light.get_child( 0 ) )
 
 	for gear in gearwheel_objectives:
-#		gearwheel_objective_count += 1
+		gearwheel_objective_total += 1
 
 		get_node( gear ).connect( "activated",
 		Callable( self, "ObjectiveCompleted" ) )
+
+	get_node( door_to_next_level ).conditional = gearwheel_objective_total
 
 func RestartLevel() -> void:
 	get_tree().change_scene_to_file(
 		"res://Levels/" +\
 		glbl.current_level.get_name() +\
-		".tscn"
-	)
+		".tscn" )
 
 func  ObjectiveCompleted() -> void:
 	gearwheel_objective_count += 1
