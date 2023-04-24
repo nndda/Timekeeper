@@ -34,7 +34,7 @@ func TickingAnim() -> void:
 	set_ease( Tween.EASE_OUT ).\
 	set_trans( Tween.TRANS_BOUNCE )
 
-	for gear in gearwheels_object:
+	for gear in gearwheels_object: if gear.visible:
 		var rotate_dir : float =\
 		ticking_speed if gear.get_name().ends_with( "+" )\
 		else -ticking_speed
@@ -49,7 +49,7 @@ var running_tween : Tween
 func RunningAnim() -> void:
 	running_tween = create_tween().set_loops().set_parallel()
 
-	for gear in gearwheels_object:
+	for gear in gearwheels_object: if gear.visible:
 		var rotate_dir : float =\
 		360 if gear.get_name().ends_with( "+" )\
 		else -360
@@ -64,6 +64,8 @@ func RunningAnim() -> void:
 
 
 func _ready():
+	if $VisibilityHandler/VisibleOnScreenEnabler2D.visible: hide()
+
 	gearwheels_object = glbl.get_children_if( "Wheel", self )
 
 	if auto_run: RunAuto()
@@ -87,10 +89,11 @@ func Run() -> void:
 		RunAuto()
 
 func _on_child_exiting_tree( node ):
-	if cobwebs_objects.has( node ):
-		cobwebs_objects.erase( node )
+	if !glbl.player_dead:
+		if cobwebs_objects.has( node ):
+			cobwebs_objects.erase( node )
 
-	if cobwebs_objects.is_empty() and !active: Run()
+		if cobwebs_objects.is_empty() and !active: Run()
 
 func _on_tree_exiting():
 	if running_tween != null: running_tween.kill()
