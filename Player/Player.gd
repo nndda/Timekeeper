@@ -8,7 +8,7 @@ var jump_force : float = 400
 var jump_count : int = 0
 const MAX_FALL_SPEED = 9800
 
-var dead : bool = false
+#var dead : bool = false
 
 var allow_clean : bool = true
 
@@ -17,7 +17,7 @@ var allow_clean : bool = true
 @onready var camera : Camera2D = $Camera2D
 
 
-func _ready(): dead = false
+func _ready(): glbl.player_dead = false
 
 func Movementnput() -> void:
 	move_x = 0
@@ -47,7 +47,7 @@ func _process( _delta ):
 
 func _physics_process( delta ):
 
-	if !dead:
+	if !glbl.player_dead:
 
 		Movementnput()
 
@@ -82,9 +82,36 @@ func Clean() -> void:
 		animation.play( "Clean" )
 
 func Kill() -> void:
-	dead = true
+	glbl.player_dead = true
 	velocity.y = 0
 	$UI/AnimationPlayer.play( "Death" )
+
+
+var show_dialogue_tween : Tween
+var hide_dialogue_tween : Tween
+
+func ShowDialogue( text : String = "" ) -> void:
+	print()
+	show_dialogue_tween = create_tween().set_ease( Tween.EASE_OUT )
+	show_dialogue_tween.\
+	tween_property( $UI/Dialogue, "modulate", Color.WHITE, 0.4 ).\
+	from_current()
+
+	show_dialogue_tween.play()
+	$UI/Dialogue/TextureRect/Label.text = text
+	print("Show Dialogue")
+	print( $UI/Dialogue/TextureRect/Label.text )
+
+func HideDialogue() -> void:
+	hide_dialogue_tween = create_tween().set_ease( Tween.EASE_OUT )
+	hide_dialogue_tween.\
+	tween_property( $UI/Dialogue, "modulate", Color.TRANSPARENT, 0.4 ).\
+	from_current()
+
+	hide_dialogue_tween.play()
+	$UI/Dialogue/TextureRect/Label.text = ""
+	print("Hide Dialogue")
+	print( $UI/Dialogue/TextureRect/Label.text )
 
 
 
@@ -101,8 +128,39 @@ func _on_AnimationPlayer_started( anim_name ):
 
 func _on_AnimationUI_started( anim_name ):
 	if anim_name == "Death":
+		animation.pause()
 		velocity.y = 0
 
 func _on_AnimationUI_finished( anim_name ):
 	if anim_name == "Death":
 		glbl.current_level.call_deferred( "RestartLevel" )
+
+
+
+#	Touchscreen    ================================================================
+
+var btn_col_pressed := Color( 0.5, 0.5, 0.5 )
+var btn_col_normal := Color( 0.2, 0.2, 0.2 )
+
+func _on_left_button_down(): Input.action_press( "Left" )
+func _on_left_button_up(): Input.action_release( "Left" )
+
+func _on_right_button_down(): Input.action_press( "Right" )
+func _on_right_button_up(): Input.action_release( "Right" )
+
+func _on_clean_pressed(): Input.action_press( "Clean" )
+func _on_jump_pressed(): Input.action_press( "Jump" )
+
+func _on_button_pressed( button : String ) -> void: get_node( NodePath( button ) ).modulate = btn_col_pressed
+func _on_button_release( button : String ) -> void: get_node( NodePath( button ) ).modulate = btn_col_normal
+
+
+func _on_ui_ready():
+	for btn in [
+		$UI/Touchscreen/Move/Left,
+		$UI/Touchscreen/Move/Right,
+		$UI/Touchscreen/Action/Clean,
+		$UI/Touchscreen/Action/Jump ]:
+			btn.modulate = btn_col_normal
+	if !DisplayServer.is_touchscreen_available(): $UI/Touchscreen.hide() # $UI/Touchscreen.queue_free()
+#	else: $UI/Touchscreen.show()

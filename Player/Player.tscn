@@ -1,7 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://fwgthtxmlpx4"]
+[gd_scene load_steps=29 format=3 uid="uid://fwgthtxmlpx4"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_gebf3"]
 [ext_resource type="Texture2D" uid="uid://bclh64215i6f" path="res://Player/Sprites.webp" id="2_fl1hh"]
+[ext_resource type="FontFile" uid="uid://ud26wvprn5ur" path="res://UI/Font/monogram.ttf" id="3_jmy4p"]
+[ext_resource type="Texture2D" uid="uid://l4mq5pc55lkx" path="res://UI/Sprites/grey_sliderRight.webp" id="4_k23db"]
+[ext_resource type="Texture2D" uid="uid://iod11q83bj46" path="res://UI/Sprites/grey_sliderLeft.webp" id="4_vn2a1"]
+[ext_resource type="Texture2D" uid="uid://bqlivp1vmp7gp" path="res://UI/Sprites/grey_circle.webp" id="6_405lf"]
+[ext_resource type="Texture2D" uid="uid://7vyrvq7hd7yo" path="res://UI/Sprites/grey_sliderDown.webp" id="7_a6mgu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu4g0"]
 size = Vector2(13, 30)
@@ -431,7 +436,6 @@ polygon = PackedVector2Array(-6, -11, -6, -13, -5, -13, -5, -14, -3, -14, -3, -1
 
 [sub_resource type="Animation" id="Animation_mgsa5"]
 resource_name = "Death"
-length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -439,10 +443,10 @@ tracks/0/path = NodePath("UI/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1.5),
-"transitions": PackedFloat32Array(0.5, 1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.4, 1),
+"transitions": PackedFloat32Array(0.5, 1, 1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1)]
+"values": [Color(1, 0, 0, 0), Color(1, 0, 0, 0.439216), Color(0, 0, 0, 1), Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_60u64"]
@@ -465,6 +469,18 @@ _data = {
 "Death": SubResource("Animation_mgsa5"),
 "RESET": SubResource("Animation_60u64")
 }
+
+[sub_resource type="Gradient" id="Gradient_gjlk7"]
+offsets = PackedFloat32Array(0, 0.217687, 1)
+colors = PackedColorArray(0, 0, 0, 0.862745, 0, 0, 0, 0.705882, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_02php"]
+gradient = SubResource("Gradient_gjlk7")
+height = 384
+fill_from = Vector2(0, 0.85)
+fill_to = Vector2(0, 0.75)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8in80"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 11
@@ -546,7 +562,126 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
 
+[node name="Dialogue" type="Control" parent="UI"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Dialogue"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_02php")
+
+[node name="Label" type="Label" parent="UI/Dialogue/TextureRect"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -35.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_jmy4p")
+text = "Authorized staff only"
+horizontal_alignment = 1
+
+[node name="Touchscreen" type="ReferenceRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+border_width = 2.0
+
+[node name="Move" type="HBoxContainer" parent="UI/Touchscreen"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -49.0
+offset_right = 104.0
+grow_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="VSeparator" type="VSeparator" parent="UI/Touchscreen/Move"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_8in80")
+
+[node name="Left" type="TextureButton" parent="UI/Touchscreen/Move"]
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("4_k23db")
+texture_pressed = ExtResource("4_k23db")
+texture_hover = ExtResource("4_k23db")
+texture_disabled = ExtResource("4_k23db")
+texture_focused = ExtResource("4_k23db")
+
+[node name="Right" type="TextureButton" parent="UI/Touchscreen/Move"]
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("4_vn2a1")
+texture_pressed = ExtResource("4_vn2a1")
+texture_hover = ExtResource("4_vn2a1")
+texture_disabled = ExtResource("4_vn2a1")
+texture_focused = ExtResource("4_vn2a1")
+
+[node name="Action" type="HBoxContainer" parent="UI/Touchscreen"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -49.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="Clean" type="TextureButton" parent="UI/Touchscreen/Action"]
+layout_mode = 2
+focus_mode = 0
+action_mode = 0
+texture_normal = ExtResource("6_405lf")
+texture_pressed = ExtResource("6_405lf")
+texture_hover = ExtResource("6_405lf")
+texture_disabled = ExtResource("6_405lf")
+texture_focused = ExtResource("6_405lf")
+
+[node name="Jump" type="TextureButton" parent="UI/Touchscreen/Action"]
+layout_mode = 2
+focus_mode = 0
+action_mode = 0
+texture_normal = ExtResource("7_a6mgu")
+texture_pressed = ExtResource("7_a6mgu")
+texture_hover = ExtResource("7_a6mgu")
+texture_disabled = ExtResource("7_a6mgu")
+texture_focused = ExtResource("7_a6mgu")
+
 [connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="_on_AnimationPlayer_finished"]
 [connection signal="animation_started" from="Sprite2D/AnimationPlayer" to="." method="_on_AnimationPlayer_started"]
+[connection signal="ready" from="UI" to="." method="_on_ui_ready"]
 [connection signal="animation_finished" from="UI/AnimationPlayer" to="." method="_on_AnimationUI_finished"]
 [connection signal="animation_started" from="UI/AnimationPlayer" to="." method="_on_AnimationUI_started"]
+[connection signal="button_down" from="UI/Touchscreen/Move/Left" to="." method="_on_left_button_down"]
+[connection signal="button_down" from="UI/Touchscreen/Move/Left" to="." method="_on_button_pressed" binds= ["UI/Touchscreen/Move/Left"]]
+[connection signal="button_up" from="UI/Touchscreen/Move/Left" to="." method="_on_left_button_up"]
+[connection signal="button_up" from="UI/Touchscreen/Move/Left" to="." method="_on_button_release" binds= ["UI/Touchscreen/Move/Left"]]
+[connection signal="button_down" from="UI/Touchscreen/Move/Right" to="." method="_on_right_button_down"]
+[connection signal="button_down" from="UI/Touchscreen/Move/Right" to="." method="_on_button_pressed" binds= ["UI/Touchscreen/Move/Right"]]
+[connection signal="button_up" from="UI/Touchscreen/Move/Right" to="." method="_on_right_button_up"]
+[connection signal="button_up" from="UI/Touchscreen/Move/Right" to="." method="_on_button_release" binds= ["UI/Touchscreen/Move/Right"]]
+[connection signal="button_down" from="UI/Touchscreen/Action/Clean" to="." method="_on_button_pressed" binds= ["UI/Touchscreen/Action/Clean"]]
+[connection signal="button_up" from="UI/Touchscreen/Action/Clean" to="." method="_on_button_release" binds= ["UI/Touchscreen/Action/Clean"]]
+[connection signal="pressed" from="UI/Touchscreen/Action/Clean" to="." method="_on_clean_pressed"]
+[connection signal="button_down" from="UI/Touchscreen/Action/Jump" to="." method="_on_button_pressed" binds= ["UI/Touchscreen/Action/Jump"]]
+[connection signal="button_up" from="UI/Touchscreen/Action/Jump" to="." method="_on_button_release" binds= ["UI/Touchscreen/Action/Jump"]]
+[connection signal="pressed" from="UI/Touchscreen/Action/Jump" to="." method="_on_jump_pressed"]
