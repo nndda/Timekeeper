@@ -4,7 +4,10 @@ extends Area2D
 @export var callback_function : String
 @export var callback_reset : String
 @export var one_time : bool = true
+@export var manual : bool = false
 
+signal player_entered
+signal player_exited
 
 func _ready():
 	if one_time: disconnect( "body_exited",
@@ -21,7 +24,11 @@ func CallFunction( reset : bool = false ) -> void:
 
 
 func _on_body_entered( body ):
-	if body.get_name() == "Player": CallFunction()
+	if body.get_name() == "Player":
+		if manual: emit_signal( "player_entered" )
+		else: CallFunction()
 
 func _on_body_exited( body ):
-	if body.get_name() == "Player": CallFunction( true )
+	if body.get_name() == "Player":
+		if manual: emit_signal( "player_exited" )
+		else: CallFunction( true )
