@@ -5,8 +5,8 @@ extends Node2D
 @export var gearwheel_objectives : Array[ NodePath ]
 var gearwheel_objective_count : int = 0
 var gearwheel_objective_total : int = 0
-@export var spider_objectives : Array[ NodePath ]
-var spider_objectives_count : int = 0
+#@export var spider_objectives : Array[ NodePath ]	# didnt hav enough time :(
+#var spider_objectives_count : int = 0
 
 @export_node_path( "Node2D" ) var door_to_next_level
 var objective_lights : Array[ Object ]
@@ -17,6 +17,10 @@ func _enter_tree(): glbl.current_level = self
 
 func _ready():
 	$UI.show()
+	$GlobalModulate.show()
+
+	for light in $Lights.get_children(): if light is CanvasItem:
+		light.hide()
 
 	var camlim = get_node( camera_boundary )
 	glbl.camera_boundary = [

@@ -22,6 +22,7 @@ monitorable = false
 script = ExtResource("1_rd485")
 
 [node name="Label" type="Label" parent="."]
+z_index = 2
 material = ExtResource("2_6an4h")
 offset_left = -8.0
 offset_top = -64.0
