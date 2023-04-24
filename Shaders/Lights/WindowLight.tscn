@@ -27,6 +27,5 @@ position = Vector2(-4.76837e-07, -1.90735e-06)
 scale = Vector2(5.6, 10.4)
 enable_node_path = NodePath("../..")
 
-[connection signal="ready" from="." to="." method="hide"]
 [connection signal="screen_entered" from="VisibilityHandler/VisibleOnScreenEnabler2D" to="." method="show"]
 [connection signal="screen_exited" from="VisibilityHandler/VisibleOnScreenEnabler2D" to="." method="hide"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://brgj5wi1ef142"]
+[gd_scene load_steps=5 format=3 uid="uid://brgj5wi1ef142"]
 
 [ext_resource type="Texture2D" uid="uid://dn0bt6t8uj4wa" path="res://Shaders/Lights/WallLight2.webp" id="1_gfocg"]
+[ext_resource type="Script" path="res://Scripts/VisibilityHandler.gd" id="2_jffjf"]
 
 [sub_resource type="Gradient" id="Gradient_s6nui"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -20,3 +21,15 @@ region_rect = Rect2(32, 0, 32, 32)
 visible = false
 color = Color(1, 0.933333, 0.729412, 1)
 texture = SubResource("GradientTexture2D_popcv")
+
+[node name="VisibilityHandler" type="Node" parent="."]
+script = ExtResource("2_jffjf")
+to_parent_position = true
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibilityHandler"]
+position = Vector2(-4.76837e-07, -3.8147e-06)
+scale = Vector2(5.6, 5.6)
+enable_node_path = NodePath("../..")
+
+[connection signal="screen_entered" from="VisibilityHandler/VisibleOnScreenEnabler2D" to="." method="show"]
+[connection signal="screen_exited" from="VisibilityHandler/VisibleOnScreenEnabler2D" to="." method="hide"]
