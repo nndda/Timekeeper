@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://h68ysumvola0"]
+
+[ext_resource type="PackedScene" uid="uid://dv6isj2l7ddji" path="res://Levels/LevelBase.tscn" id="1_1rkx3"]
+
+[node name="5" instance=ExtResource("1_1rkx3")]
+
+[editable path="Door"]
