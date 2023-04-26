@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://du05oq3yje2i3"]
+
+[ext_resource type="PackedScene" uid="uid://dlt3qsimxr885" path="res://Objects/TriggerArea.tscn" id="1_3470p"]
+[ext_resource type="Material" uid="uid://cb7civleudgv0" path="res://Shaders/mix-unshaded.material" id="2_a58mn"]
+[ext_resource type="FontFile" uid="uid://ud26wvprn5ur" path="res://UI/Font/monogram.ttf" id="2_m2x4a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8yxqy"]
+font_size = 32
+outline_size = 2
+
+[node name="Dialogue" instance=ExtResource("1_3470p")]
+one_time = false
+manual = true
+
+[node name="Label" type="Label" parent="." index="1"]
+visible = false
+z_index = 2
+material = ExtResource("2_a58mn")
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_m2x4a")
+text = "!"
+label_settings = SubResource("LabelSettings_8yxqy")
+horizontal_alignment = 1
+
+[connection signal="player_entered" from="." to="Label" method="show"]
+[connection signal="player_exited" from="." to="Label" method="hide"]

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://wwhep0c4ipbx"]
+
+[ext_resource type="Script" path="res://Scripts/Global.gd" id="1_7vlya"]
+[ext_resource type="AudioStream" uid="uid://xsc60mw1ya7h" path="res://Music/Light Ambience 2.ogg" id="2_6mogg"]
+[ext_resource type="AudioStream" uid="uid://bs4u4a6t81vi0" path="res://Sound Effects/ogg/mixkit-deep-cinematic-wind-hum-1177.ogg" id="3_fxtyn"]
+
+[node name="Global" type="Node"]
+script = ExtResource("1_7vlya")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_6mogg")
+volume_db = -5.0
+pitch_scale = 0.87
+autoplay = true
+bus = &"Music"
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_fxtyn")
+volume_db = -4.0
+autoplay = true
+bus = &"Music"

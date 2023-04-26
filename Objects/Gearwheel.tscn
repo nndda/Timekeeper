@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://wgulisivjjkl"]
+
+[ext_resource type="Script" path="res://Objects/Gearwheel.gd" id="1_s6uul"]
+[ext_resource type="Texture2D" uid="uid://clu8bsbq82sw4" path="res://Objects/Gearwheels/NormalA.webp" id="2_gjsur"]
+[ext_resource type="Texture2D" uid="uid://dsyidtb0d4aa5" path="res://Objects/Gearwheels/Inner02.webp" id="3_ki2aj"]
+[ext_resource type="Texture2D" uid="uid://blrg2jp12qbgb" path="res://Objects/Gearwheels/Inner01.webp" id="4_ucy58"]
+[ext_resource type="AudioStream" uid="uid://dstyaeq7k3cn5" path="res://Sound Effects/ogg/steamboat_engine.ogg" id="5_hcdvp"]
+
+[node name="Gearwheel" type="Node2D"]
+script = ExtResource("1_s6uul")
+
+[node name="Wheel" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_gjsur")
+region_rect = Rect2(416, 32, 64, 64)
+
+[node name="Inner" type="Sprite2D" parent="Wheel"]
+texture = ExtResource("3_ki2aj")
+region_rect = Rect2(480, 96, 64, 64)
+
+[node name="Wheel+" type="Sprite2D" parent="."]
+position = Vector2(32, -48)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_gjsur")
+region_rect = Rect2(416, 32, 64, 64)
+
+[node name="Inner" type="Sprite2D" parent="Wheel+"]
+texture = ExtResource("4_ucy58")
+region_rect = Rect2(416, 96, 64, 64)
+
+[node name="VisibilityHandler" type="Node" parent="."]
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibilityHandler"]
+enable_node_path = NodePath("../..")
+
+[node name="AudioRunning" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_hcdvp")
+volume_db = -15.0
+stream_paused = true
+max_distance = 600.0
+bus = &"Sound Effect"
+
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="screen_entered" from="VisibilityHandler/VisibleOnScreenEnabler2D" to="." method="_on_screen_entered"]
+[connection signal="screen_exited" from="VisibilityHandler/VisibleOnScreenEnabler2D" to="." method="_on_screen_exited"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddsav5tnheunm"]
+
+[ext_resource type="Material" uid="uid://enxp3soxrpje" path="res://Objects/Chain.material" id="1_sg4qn"]
+[ext_resource type="Texture2D" uid="uid://bkudyxyfgr7c7" path="res://Objects/Chain.webp" id="2_hwey0"]
+[ext_resource type="Script" path="res://Objects/Chain.gd" id="2_xnydp"]
+
+[node name="Chain" type="Line2D"]
+material = ExtResource("1_sg4qn")
+position = Vector2(16, 0)
+points = PackedVector2Array(-208, -32, 112, 80, 96, 96, -224, -16)
+texture = ExtResource("2_hwey0")
+texture_mode = 1
+joint_mode = 2
+script = ExtResource("2_xnydp")

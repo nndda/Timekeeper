@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://ux0qv01spkwh"]
+
+[node name="GlobalModulate" type="CanvasModulate"]
+color = Color(0.811765, 0.631373, 0.454902, 1)

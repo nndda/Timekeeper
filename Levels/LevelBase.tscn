@@ -1,0 +1,147 @@
+[gd_scene load_steps=9 format=3 uid="uid://dv6isj2l7ddji"]
+
+[ext_resource type="TileSet" uid="uid://dk63g556sp5ed" path="res://Objects/Tilesets/Tileset.tres" id="1_gvbjo"]
+[ext_resource type="Script" path="res://Scripts/LevelHandler.gd" id="1_pqgjw"]
+[ext_resource type="PackedScene" uid="uid://be7vfbnulj1ue" path="res://Objects/Door.tscn" id="2_4jiiq"]
+[ext_resource type="PackedScene" uid="uid://fwgthtxmlpx4" path="res://Player/Player.tscn" id="3_nt3by"]
+[ext_resource type="PackedScene" uid="uid://ux0qv01spkwh" path="res://Shaders/GlobalModulate.tscn" id="5_llpxo"]
+
+[sub_resource type="Animation" id="Animation_84pa7"]
+resource_name = "FadeOut"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_n8ch4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r6h72"]
+_data = {
+"FadeOut": SubResource("Animation_84pa7"),
+"RESET": SubResource("Animation_n8ch4")
+}
+
+[node name="LevelBase" type="Node2D"]
+script = ExtResource("1_pqgjw")
+camera_boundary = NodePath("CameraLimit")
+door_to_next_level = NodePath("Door")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_gvbjo")
+format = 2
+layer_0/name = "Wall"
+layer_1/name = "MaskInner"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "+1"
+layer_2/enabled = true
+layer_2/modulate = Color(0, 0, 0, 0.470588)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = 0
+layer_2/tile_data = PackedInt32Array()
+layer_3/name = "+2"
+layer_3/enabled = true
+layer_3/modulate = Color(1, 1, 1, 1)
+layer_3/y_sort_enabled = false
+layer_3/y_sort_origin = 0
+layer_3/z_index = 2
+layer_3/tile_data = PackedInt32Array()
+layer_4/name = "Mask"
+layer_4/enabled = true
+layer_4/modulate = Color(0, 0, 0, 0.470588)
+layer_4/y_sort_enabled = false
+layer_4/y_sort_origin = 0
+layer_4/z_index = 3
+layer_4/tile_data = PackedInt32Array()
+
+[node name="Lights" type="Node2D" parent="."]
+
+[node name="Door" parent="." instance=ExtResource("2_4jiiq")]
+
+[node name="Player" parent="." instance=ExtResource("3_nt3by")]
+position = Vector2(-48, 16)
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="CameraLimit" type="ReferenceRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -120.0
+offset_right = 120.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+border_width = 5.0
+
+[node name="GlobalModulate" parent="." instance=ExtResource("5_llpxo")]
+
+[node name="UI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
+autoplay = "FadeOut"
+libraries = {
+"": SubResource("AnimationLibrary_r6h72")
+}
+
+[editable path="Door"]

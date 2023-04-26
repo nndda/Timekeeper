@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://ds4rcjgf7bj82"]
+
+[ext_resource type="Script" path="res://Objects/Interractable.gd" id="1_rd485"]
+[ext_resource type="Material" uid="uid://cb7civleudgv0" path="res://Shaders/mix-unshaded.material" id="2_6an4h"]
+[ext_resource type="FontFile" uid="uid://ud26wvprn5ur" path="res://UI/Font/monogram.ttf" id="3_dtlue"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_whl05"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bk4cr"]
+size = Vector2(48, 56)
+
+[node name="Interractable" type="Area2D"]
+collision_layer = 8
+collision_mask = 8
+input_pickable = false
+monitorable = false
+script = ExtResource("1_rd485")
+
+[node name="Label" type="Label" parent="."]
+z_index = 2
+material = ExtResource("2_6an4h")
+offset_left = -8.0
+offset_top = -64.0
+offset_right = 10.0
+offset_bottom = -46.0
+theme_override_fonts/font = ExtResource("3_dtlue")
+theme_override_styles/normal = SubResource("StyleBoxFlat_whl05")
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_bk4cr")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

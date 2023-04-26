@@ -1,0 +1,144 @@
+/* An unminified custom CSS for the Itch.io game page */
+
+.columns {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+}
+.columns > .left_col {
+  order: 2;
+  width: 100%;
+}
+.columns > .right_col {
+  order: 1;
+  width: 100%;
+  overflow-x: scroll;
+  padding: 0;
+}
+
+.view_game_page .screenshot_list {
+  white-space: nowrap;
+  width: max-content;
+}
+.screenshot_list > a {
+  display: inline-block;
+  margin: 1em !important;
+}
+
+#wrapper {
+  --l: var(--itchio_link_color);
+  --t: var(--itchio_text_color);
+  --tt: #ffffff50;
+}
+
+#inner_column {
+  max-width: 90vw;
+}
+
+.game_frame {
+  width: 100% !important;
+}
+.html_embed_widget .game_frame {
+  height: 80vh !important;
+}
+
+.column > div {
+  text-align: center;
+}
+.community_post_widget {
+  text-align: left;
+}
+
+summary {
+  color: var(--l);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+details > table {
+  width: 100%;
+  color: transparent;
+  margin: 0 !important;
+}
+details > table td {
+  padding: 0.2em 0.25em !important;
+}
+
+details > table tr:first-child br {
+  line-height: 2.8em !important;
+}
+
+details > summary::marker {
+  content: "";
+}
+.toggle_info_btn .svgicon {
+  display: none;
+}
+.formatted_description {
+  margin-bottom: 1em !important;
+}
+
+details > summary::before,
+.toggle_info_btn::before {
+  content: "\1F892\a0";
+  font-size: 1.5em;
+}
+details > summary::after,
+.toggle_info_btn::after {
+  content: "\a0\1F890";
+  font-size: 1.5em;
+}
+details > table td {
+  width: 50%;
+}
+details > table div {
+  color: var(--t) !important;
+  line-height: 1.25em;
+}
+details > table td:first-child {
+  text-align: right;
+}
+
+details > table a > span {
+  color: var(--t);
+}
+
+.game_info_panel_widget {
+  background: transparent !important;
+}
+
+.game_info_panel_widget > table {
+  width: 100%;
+}
+
+.game_info_panel_widget > table td {
+  min-width: 50%;
+}
+
+.upload_list_widget .upload {
+  display: block !important;
+}
+.upload_list_widget .upload .upload_name {
+  display: block !important;
+}
+.upload > .download_btn {
+  margin: auto !important;
+  width: 15em !important;
+}
+.upload > .info_column {
+  display: inline !important;
+}
+
+.community_post_form_widget > form {
+  margin: 0 auto;
+}
+
+#wrapper h2::before {
+  content: "";
+  left: 0;
+  position: absolute;
+  background: radial-gradient(transparent 38%, var(--tt) 60%);
+  height: 2px;
+  width: 100%;
+  margin-top: 0.75em;
+}
