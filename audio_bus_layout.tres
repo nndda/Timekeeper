@@ -1,15 +1,25 @@
-[gd_resource type="AudioBusLayout" format=3 uid="uid://bsne25aswvvq7"]
+[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://bsne25aswvvq7"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_n4dtq"]
+resource_name = "Reverb"
+room_size = 0.15
+damping = 0.38
+spread = 0.2
+hipass = 0.16
+wet = 0.08
 
 [resource]
 bus/1/name = &"Music"
 bus/1/solo = false
 bus/1/mute = false
 bus/1/bypass_fx = false
-bus/1/volume_db = 0.0
+bus/1/volume_db = -9.96503
 bus/1/send = &"Master"
 bus/2/name = &"Sound Effect"
 bus/2/solo = false
 bus/2/mute = false
 bus/2/bypass_fx = false
-bus/2/volume_db = 0.0
+bus/2/volume_db = -6.66539
 bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectReverb_n4dtq")
+bus/2/effect/0/enabled = true

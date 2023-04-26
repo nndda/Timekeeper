@@ -43,6 +43,7 @@ func TickingAnim() -> void:
 			gear, "rotation_degrees",
 			rotate_dir, 1 ).as_relative()
 
+	$AudioRunning.play()
 	ticking_tween.play()
 
 var running_tween : Tween
@@ -60,6 +61,7 @@ func RunningAnim() -> void:
 			remap( running_speed, 1, 30, 30, 1 )
 		).from( 0 )
 
+	$AudioRunning.play()
 	running_tween.play()
 
 
