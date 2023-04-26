@@ -1,8 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://fwgthtxmlpx4"]
+[gd_scene load_steps=30 format=3 uid="uid://fwgthtxmlpx4"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_gebf3"]
 [ext_resource type="Texture2D" uid="uid://bclh64215i6f" path="res://Player/Sprites.webp" id="2_fl1hh"]
 [ext_resource type="FontFile" uid="uid://ud26wvprn5ur" path="res://UI/Font/monogram.ttf" id="3_jmy4p"]
+[ext_resource type="AudioStream" uid="uid://dyoptptscyt8w" path="res://Sound Effects/ogg/mixkit-karate-hit-whoosh-1478.ogg" id="3_nweo5"]
 [ext_resource type="Texture2D" uid="uid://l4mq5pc55lkx" path="res://UI/Sprites/grey_sliderRight.webp" id="4_k23db"]
 [ext_resource type="Texture2D" uid="uid://iod11q83bj46" path="res://UI/Sprites/grey_sliderLeft.webp" id="4_vn2a1"]
 [ext_resource type="Texture2D" uid="uid://bqlivp1vmp7gp" path="res://UI/Sprites/grey_circle.webp" id="6_405lf"]
@@ -73,6 +74,21 @@ tracks/4/keys = {
 "update": 1,
 "values": [false, true, false]
 }
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer2D")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_nweo5")
+}],
+"times": PackedFloat32Array(0.075)
+}
+tracks/5/use_blend = true
 
 [sub_resource type="Animation" id="Animation_c408l"]
 resource_name = "Idle"
@@ -532,8 +548,12 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Broom/Broom"]
+visible = false
 position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_n2c52")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Sprite2D"]
+bus = &"Sound Effect"
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 position = Vector2(1, 2)
@@ -599,7 +619,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-border_width = 2.0
+border_width = 0.0
 
 [node name="Move" type="HBoxContainer" parent="UI/Touchscreen"]
 layout_mode = 1

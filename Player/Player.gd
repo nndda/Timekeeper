@@ -9,7 +9,8 @@ var jump_count : int = 0
 const MAX_FALL_SPEED = 9800
 
 #var dead : bool = false
-
+@export var allow_move : bool = true
+@export var allow_jump : bool = true
 var allow_clean : bool = true
 
 @onready var animation : AnimationPlayer = $Sprite2D/AnimationPlayer
@@ -20,19 +21,20 @@ var allow_clean : bool = true
 func _ready(): glbl.player_dead = false
 
 func Movementnput() -> void:
-	move_x = 0
+	if allow_move:
+		move_x = 0
 
-	if allow_clean: if Input.is_action_just_pressed( "Clean" ): Clean()
-	else:
+		if allow_clean: if Input.is_action_just_pressed( "Clean" ): Clean()
+		else:
 
-		if Input.is_action_pressed( "Right" ): Walk()
-		elif Input.is_action_pressed( "Left" ): Walk( -1 )
-		else: animation.play( "Idle" )
+			if Input.is_action_pressed( "Right" ): Walk()
+			elif Input.is_action_pressed( "Left" ): Walk( -1 )
+			else: animation.play( "Idle" )
 
-		if !is_on_floor(): animation.play( "Jump" )
-		else: jump_count = 0
+			if !is_on_floor(): animation.play( "Jump" )
+			else: jump_count = 0
 
-		if Input.is_action_just_pressed( "Jump" ): Jump()
+			if Input.is_action_just_pressed( "Jump" ) and allow_jump: Jump()
 
 func LimitCamera() -> void:
 	camera.limit_left = glbl.camera_boundary[ 0 ]
@@ -142,14 +144,14 @@ func _on_AnimationUI_finished( anim_name ):
 var btn_col_pressed := Color( 0.5, 0.5, 0.5 )
 var btn_col_normal := Color( 0.2, 0.2, 0.2 )
 
-func _on_left_button_down(): Input.action_press( "Left" )
-func _on_left_button_up(): Input.action_release( "Left" )
+func _on_left_button_down(): if allow_move: Input.action_press( "Left" )
+func _on_left_button_up(): if allow_move: Input.action_release( "Left" )
 
-func _on_right_button_down(): Input.action_press( "Right" )
-func _on_right_button_up(): Input.action_release( "Right" )
+func _on_right_button_down(): if allow_move: Input.action_press( "Right" )
+func _on_right_button_up(): if allow_move: Input.action_release( "Right" )
 
-func _on_clean_pressed(): Input.action_press( "Clean" )
-func _on_jump_pressed(): Input.action_press( "Jump" )
+func _on_clean_pressed(): if allow_move: Input.action_press( "Clean" )
+func _on_jump_pressed(): if allow_move and allow_jump: Input.action_press( "Jump" )
 
 func _on_button_pressed( button : String ) -> void: get_node( NodePath( button ) ).modulate = btn_col_pressed
 func _on_button_release( button : String ) -> void: get_node( NodePath( button ) ).modulate = btn_col_normal
@@ -162,5 +164,7 @@ func _on_ui_ready():
 		$UI/Touchscreen/Action/Clean,
 		$UI/Touchscreen/Action/Jump ]:
 			btn.modulate = btn_col_normal
-	if !DisplayServer.is_touchscreen_available(): $UI/Touchscreen.hide() # $UI/Touchscreen.queue_free()
-#	else: $UI/Touchscreen.show()
+
+	if !DisplayServer.is_touchscreen_available():
+		$UI/Touchscreen.hide() # $UI/Touchscreen.queue_free()
+	else: $UI/Touchscreen.show()
