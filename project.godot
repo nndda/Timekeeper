@@ -11,8 +11,12 @@ config_version=5
 [application]
 
 config/name="Timekeeper"
-run/main_scene="res://Levels/2.tscn"
+run/main_scene="res://Levels/1.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
+boot_splash/show_image=false
+boot_splash/use_filter=false
+config/icon="res://Objects/Gearwheels/NormalB.webp"
+config/windows_native_icon="res://Icon.ico"
 
 [audio]
 
@@ -20,7 +24,7 @@ buses/default_bus_layout="res://audio_bus_layout.tres"
 
 [autoload]
 
-glbl="*res://Scripts/Global.gd"
+glbl="*res://Scripts/Global.tscn"
 
 [display]
 
