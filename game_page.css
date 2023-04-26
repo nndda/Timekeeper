@@ -1,167 +1,144 @@
 /* An unminified custom CSS for the Itch.io game page */
 
+.columns {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+}
+.columns > .left_col {
+  order: 2;
+  width: 100%;
+}
+.columns > .right_col {
+  order: 1;
+  width: 100%;
+  overflow-x: scroll;
+  padding: 0;
+}
+
+.view_game_page .screenshot_list {
+  white-space: nowrap;
+  width: max-content;
+}
+.screenshot_list > a {
+  display: inline-block;
+  margin: 1em !important;
+}
+
 #wrapper {
-  --l : var(--itchio_link_color);
-  --t : var(--itchio_text_color);
-  --tt : #ffffff50
+  --l: var(--itchio_link_color);
+  --t: var(--itchio_text_color);
+  --tt: #ffffff50;
 }
 
 #inner_column {
-/*   max-width: 1280px */
-  max-width: 95vw
+  max-width: 90vw;
 }
 
 .game_frame {
-/*   width: 100% !important; */
   width: 100% !important;
 }
-
-.game_pending::after {
-  font-family: monospace;
-  color: var(--l);
-  position: absolute;
-  width: 100%;
-  content: "Firefox, Chrome or other Chromium-based browser highly recommended!";
-/*   margin: 1em; */
-  line-height: 2em;
-  text-align: center
-}
-
 .html_embed_widget .game_frame {
   height: 80vh !important;
 }
 
 .column > div {
-  text-align: center
+  text-align: center;
 }
-
-.custom-wr > span {
-  
+.community_post_widget {
+  text-align: left;
 }
 
 summary {
   color: var(--l);
   text-decoration: underline;
-  cursor: pointer
+  cursor: pointer;
 }
 
 details > table {
   width: 100%;
   color: transparent;
-  line-height: 0.75em;
-  margin-bottom: 0 !important;
-/*   margin-top: 1em */
-/*   border-spacing: 2px !important; */
-/*   border-collapse: separate !important; */
-/*   text-indent: 0 !important; */
+  margin: 0 !important;
+}
+details > table td {
+  padding: 0.2em 0.25em !important;
 }
 
+details > table tr:first-child br {
+  line-height: 2.8em !important;
+}
 
-details > summary::marker{content:""}
-.toggle_info_btn .svgicon {display: none}
-.formatted_description{margin-bottom: 1em !important;}
+details > summary::marker {
+  content: "";
+}
+.toggle_info_btn .svgicon {
+  display: none;
+}
+.formatted_description {
+  margin-bottom: 1em !important;
+}
 
 details > summary::before,
-.toggle_info_btn::before
-{
+.toggle_info_btn::before {
   content: "\1F892\a0";
   font-size: 1.5em;
 }
 details > summary::after,
-.toggle_info_btn::after
-{
+.toggle_info_btn::after {
   content: "\a0\1F890";
   font-size: 1.5em;
 }
-
 details > table td {
-  width: 50%
+  width: 50%;
 }
 details > table div {
-/*   text-indent: 0 !important; */
   color: var(--t) !important;
+  line-height: 1.25em;
 }
 details > table td:first-child {
   text-align: right;
-/*   font-size: 90%; */
-/* opacity: 0.7; */
 }
 
-
-
+details > table a > span {
+  color: var(--t);
+}
 
 .game_info_panel_widget {
   background: transparent !important;
 }
 
 .game_info_panel_widget > table {
-  width: 100%
+  width: 100%;
 }
 
 .game_info_panel_widget > table td {
-  min-width: 50%
+  min-width: 50%;
 }
 
-.upload_list_widget {
-/*   margin-top: 3.5em */
+.upload_list_widget .upload {
+  display: block !important;
 }
-.upload_list_widget::before {
-/*   content: "If you're having performance issue on the browser"; */
-/*   position: absolute; */
-/*   margin: auto; */
-/*   margin-top: -2.5em; */
-/*   text-align: center !important; */
-}
-.upload {
-/*   justify-items: center !important; */
-  display: inline !important;
-/*   align-items: center !important; */
-/*   width: 60% !important; */
+.upload_list_widget .upload .upload_name {
+  display: block !important;
 }
 .upload > .download_btn {
-/*   text-align: right; */
-/*   margin: auto !important; */
-/*   width: 50% !important; */
-  
+  margin: auto !important;
+  width: 15em !important;
 }
 .upload > .info_column {
   display: inline !important;
-  
-/*   text-align: left; */
-/*   width: 50% !important; */
-    
-/*   width: 70em !important; */
 }
-
 
 .community_post_form_widget > form {
   margin: 0 auto;
-/*   color: red !important; */
-/*   filter: blur(2px) */
-/*   text-align: center !important; */
-/*   width: 100vw !important; */
 }
 
-
-
-#wrapper h2 {
-/*   width: 100% */
-/*   background-color: var(--p); */
-
-}
 #wrapper h2::before {
   content: "";
   left: 0;
   position: absolute;
-  background: radial-gradient(
-    transparent 38%,
-    var(--tt) 60%
-/*     transparent 80% */
-/*     black 95% */
-  );
+  background: radial-gradient(transparent 38%, var(--tt) 60%);
   height: 2px;
   width: 100%;
   margin-top: 0.75em;
 }
-
-
