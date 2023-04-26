@@ -12,6 +12,7 @@ var gearwheel_objective_total : int = 0
 var objective_lights : Array[ Object ]
 
 signal objective_completed( count : int )
+signal objective_completed_all
 
 func _enter_tree(): glbl.current_level = self
 
@@ -59,3 +60,6 @@ func  ObjectiveCompleted() -> void:
 		objective_lights.remove_at( 0 )
 
 	objective_completed.emit( gearwheel_objective_count )
+	print( gearwheel_objective_count )
+	if gearwheel_objective_count == gearwheel_objective_total: emit_signal( "objective_completed_all" )
+
