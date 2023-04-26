@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://db0ag3kiu6hq"]
+[gd_scene load_steps=31 format=3 uid="uid://db0ag3kiu6hq"]
 
 [ext_resource type="PackedScene" uid="uid://dv6isj2l7ddji" path="res://Levels/LevelBase.tscn" id="1_vouiy"]
 [ext_resource type="PackedScene" uid="uid://7gn1fuytfymn" path="res://Shaders/Lights/WallLight.tscn" id="2_lbn4d"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://fmk2mu2pnas" path="res://Objects/Gearwheels/SharpA.webp" id="16_oxgjm"]
 [ext_resource type="Shader" path="res://Shaders/Scrolling.gdshader" id="18_5innk"]
 [ext_resource type="PackedScene" uid="uid://du05oq3yje2i3" path="res://Objects/TriggerArea-Dialogue.tscn" id="21_7gxrl"]
+[ext_resource type="PackedScene" uid="uid://diyr1myw0r3ca" path="res://Objects/Spider.tscn" id="22_fpa4y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jq6kt"]
 size = Vector2(32, 56)
@@ -28,11 +29,48 @@ size = Vector2(32, 56)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_377v4"]
 size = Vector2(40, 40)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qqt6t"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2qiac"]
 resource_local_to_scene = true
 shader = ExtResource("18_5innk")
 shader_parameter/direction = Vector2(1, 0)
 shader_parameter/speed_scale = 2.0
+
+[sub_resource type="Animation" id="Animation_q6n2v"]
+resource_name = "Fade"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spider:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -32), Vector2(0, -256)]
+}
+
+[sub_resource type="Animation" id="Animation_fdfa2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Spider:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7trfb"]
+_data = {
+"Fade": SubResource("Animation_q6n2v"),
+"RESET": SubResource("Animation_fdfa2")
+}
 
 [sub_resource type="Gradient" id="Gradient_0ohli"]
 offsets = PackedFloat32Array(0, 0.1, 0.9, 1)
@@ -175,6 +213,9 @@ position = Vector2(53, 16)
 position = Vector2(-224, -272)
 scale = Vector2(6.4, 5.6)
 
+[node name="AudioRunning" parent="Objects/Gearwheel" index="4"]
+stream_paused = false
+
 [node name="Gearwheel2" parent="Objects" index="1" instance=ExtResource("5_4m8bd")]
 position = Vector2(64, -264)
 
@@ -212,6 +253,9 @@ region_rect = Rect2(128, 96, 64, 64)
 [node name="VisibleOnScreenEnabler2D" parent="Objects/Gearwheel2/VisibilityHandler" index="0"]
 position = Vector2(24, -265)
 scale = Vector2(8.8, 7.3)
+
+[node name="AudioRunning" parent="Objects/Gearwheel2" index="6"]
+stream_paused = false
 
 [node name="Gearwheel3" parent="Objects" index="2" instance=ExtResource("5_4m8bd")]
 position = Vector2(768, -80)
@@ -265,6 +309,9 @@ shape = SubResource("RectangleShape2D_377v4")
 position = Vector2(836, -24)
 scale = Vector2(10.8, 9.6)
 
+[node name="AudioRunning" parent="Objects/Gearwheel3" index="9"]
+stream_paused = false
+
 [node name="Gearwheel4" parent="Objects" index="3" instance=ExtResource("5_4m8bd")]
 position = Vector2(480, -296)
 
@@ -281,6 +328,9 @@ position = Vector2(50, 3)
 [node name="VisibleOnScreenEnabler2D" parent="Objects/Gearwheel4/VisibilityHandler" index="0"]
 position = Vector2(496, -320)
 scale = Vector2(5.6, 6.4)
+
+[node name="AudioRunning" parent="Objects/Gearwheel4" index="4"]
+stream_paused = false
 
 [node name="GearwheelDeath" parent="Objects" index="4" instance=ExtResource("5_4m8bd")]
 position = Vector2(1216, -480)
@@ -325,7 +375,7 @@ region_rect = Rect2(416, 96, 64, 64)
 
 [node name="Chain" parent="Objects/GearwheelDeath" index="4" instance=ExtResource("10_78pbe")]
 show_behind_parent = true
-material = SubResource("ShaderMaterial_qqt6t")
+material = SubResource("ShaderMaterial_2qiac")
 position = Vector2(8, 16)
 points = PackedVector2Array(-72, -16, 144, -16, 144, 0, -72, 0)
 
@@ -342,6 +392,9 @@ polygon = PackedVector2Array(-120, -48, -120, 176, 136, 176, 136, -48)
 position = Vector2(1272, -464)
 scale = Vector2(14.4, 8)
 
+[node name="AudioRunning" parent="Objects/GearwheelDeath" index="7"]
+stream_paused = false
+
 [node name="Gate" parent="Objects" index="5" instance=ExtResource("13_kf7gd")]
 position = Vector2(864, -288)
 conditional = 4
@@ -349,6 +402,9 @@ conditional = 4
 [node name="VisibleOnScreenEnabler2D" parent="Objects/Gate/Gearwheel/VisibilityHandler" index="0"]
 position = Vector2(928, -328)
 scale = Vector2(13.6, 6.4)
+
+[node name="AudioRunning" parent="Objects/Gate/Gearwheel" index="3"]
+stream_paused = false
 
 [node name="Dialogue-Staff" parent="Objects" index="6" instance=ExtResource("21_7gxrl")]
 position = Vector2(552, -184)
@@ -373,6 +429,22 @@ offset_left = -8.0
 offset_top = -56.0
 offset_right = 56.0
 offset_bottom = 16.0
+
+[node name="TriggerArea-Spider" parent="Objects" index="8" instance=ExtResource("22_fpa4y")]
+position = Vector2(736, -680)
+
+[node name="CollisionPolygon2D" parent="Objects/TriggerArea-Spider" index="0"]
+visible = false
+polygon = PackedVector2Array(-72, -88, -72, 104, 224, 104, 224, -88)
+
+[node name="Line2D" parent="Objects/TriggerArea-Spider/Spider" index="0"]
+points = PackedVector2Array(0, 0, 0, -576)
+
+[node name="AnimationPlayer" parent="Objects/TriggerArea-Spider" index="2"]
+autoplay = "RESET"
+libraries = {
+"": SubResource("AnimationLibrary_7trfb")
+}
 
 [node name="CameraLimit" parent="." index="6"]
 offset_left = -256.0
@@ -416,3 +488,4 @@ expand_mode = 1
 [editable path="Objects/Gate/Gearwheel"]
 [editable path="Objects/Dialogue-Staff"]
 [editable path="Objects/Dialogue-Danger"]
+[editable path="Objects/TriggerArea-Spider"]

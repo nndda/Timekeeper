@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://u8irmyp7nq8u"]
+[gd_scene load_steps=18 format=3 uid="uid://u8irmyp7nq8u"]
 
 [ext_resource type="PackedScene" uid="uid://dv6isj2l7ddji" path="res://Levels/LevelBase.tscn" id="1_gmj10"]
 [ext_resource type="PackedScene" uid="uid://c001c4e7tnxfe" path="res://Objects/OutsideSky.tscn" id="2_ftct1"]
@@ -14,8 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://blrg2jp12qbgb" path="res://Objects/Gearwheels/Inner01.webp" id="9_nqihi"]
 [ext_resource type="Shader" path="res://Shaders/Scrolling.gdshader" id="12_iap2o"]
 [ext_resource type="PackedScene" uid="uid://du05oq3yje2i3" path="res://Objects/TriggerArea-Dialogue.tscn" id="14_ek2q6"]
+[ext_resource type="Material" uid="uid://cb7civleudgv0" path="res://Shaders/mix-unshaded.material" id="15_kc4vv"]
+[ext_resource type="Script" path="res://Levels/1.Tutorial.gd" id="16_f65tq"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yj3u6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_707l4"]
 resource_local_to_scene = true
 shader = ExtResource("12_iap2o")
 shader_parameter/direction = Vector2(1, 0)
@@ -44,7 +46,7 @@ position = Vector2(96, -8)
 visible = true
 
 [node name="WallLight3" parent="Lights" index="1" instance=ExtResource("3_7ym88")]
-position = Vector2(688, -104)
+position = Vector2(688, -128)
 
 [node name="PointLight2D" parent="Lights/WallLight3" index="0"]
 visible = true
@@ -112,6 +114,9 @@ modulate = Color(0.8, 0.8, 0.8, 1)
 rotation = -0.261799
 texture = ExtResource("8_02kyk")
 
+[node name="AudioRunning" parent="Objects/Gearwheel/Gate/Gearwheel" index="3"]
+stream_paused = false
+
 [node name="Wheel2" type="Sprite2D" parent="Objects/Gearwheel" index="7"]
 modulate = Color(0.8, 0.8, 0.8, 1)
 show_behind_parent = true
@@ -150,9 +155,12 @@ texture = ExtResource("9_nqihi")
 region_rect = Rect2(480, 96, 64, 64)
 
 [node name="Chain" parent="Objects/Gearwheel" index="10" instance=ExtResource("9_hc8ag")]
-material = SubResource("ShaderMaterial_yj3u6")
+material = SubResource("ShaderMaterial_707l4")
 position = Vector2(264, 136)
 points = PackedVector2Array(32, 24, 176, 8, 176, 24, 32, 40)
+
+[node name="AudioRunning" parent="Objects/Gearwheel" index="11"]
+stream_paused = false
 
 [node name="Dialogue-Timekeeper" parent="Objects" index="1" instance=ExtResource("14_ek2q6")]
 position = Vector2(72, 8)
@@ -166,7 +174,18 @@ offset_top = -56.0
 offset_right = 56.0
 offset_bottom = 16.0
 
-[node name="CameraLimit" parent="." index="6"]
+[node name="Tutorial" type="RichTextLabel" parent="." index="6"]
+material = ExtResource("15_kc4vv")
+offset_left = -272.0
+offset_top = -96.0
+offset_right = -152.0
+offset_bottom = -24.0
+text = "A, D		: Move
+W			: Jump
+F			: Clean"
+script = ExtResource("16_f65tq")
+
+[node name="CameraLimit" parent="." index="7"]
 offset_left = -344.0
 offset_top = -296.0
 offset_right = 768.0
