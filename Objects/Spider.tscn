@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://diyr1myw0r3ca"]
+
+[ext_resource type="PackedScene" uid="uid://dlt3qsimxr885" path="res://Objects/TriggerArea.tscn" id="1_tj40c"]
+[ext_resource type="Texture2D" uid="uid://ccwuj3jnyme5j" path="res://Objects/Spider.webp" id="2_thdvd"]
+[ext_resource type="Script" path="res://Objects/Spider.gd" id="3_3htbw"]
+
+[node name="TriggerArea-Spider" instance=ExtResource("1_tj40c")]
+callback_at = NodePath("AnimationPlayer")
+manual = true
+
+[node name="CollisionPolygon2D" parent="." index="0"]
+polygon = PackedVector2Array(-48, -64, 0, 16, 48, -64)
+
+[node name="Spider" type="Sprite2D" parent="." index="1"]
+position = Vector2(0, -32)
+texture = ExtResource("2_thdvd")
+script = ExtResource("3_3htbw")
+animation = "Fade"
+
+[node name="Line2D" type="Line2D" parent="Spider" index="0"]
+show_behind_parent = true
+points = PackedVector2Array(0, 0, 0, -64)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+
+[connection signal="player_entered" from="." to="Spider" method="Play"]
+[connection signal="animation_finished" from="AnimationPlayer" to="Spider" method="AnimFinished"]
